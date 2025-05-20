@@ -31,7 +31,7 @@ const QuieroBand = () => {
   });
 
   return (
-    <div className="w-full bg-black text-white overflow-hidden py-4 whitespace-nowrap">
+    <div className="w-screen md:w-full bg-black text-white overflow-hidden py-4 whitespace-nowrap">
       <div className="marquee flex items-center">
         {palabras}
         {palabras}

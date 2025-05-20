@@ -3,7 +3,7 @@ import React from "react";
 
 const StartComponent = () => {
   return (
-    <div className="flex items-center justify-center pt-40">
+    <div className="flex items-center justify-center">
       <Image src={"/logo.png"} alt="Logo Tormenta" width={300} height={0} />
     </div>
   );

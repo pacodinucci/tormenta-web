@@ -25,7 +25,7 @@ const Navbar = () => {
         tormenta
       </h1> */}
       <h1
-        className="text-9xl uppercase"
+        className="text-[4.7rem] md:text-9xl uppercase"
         style={{ fontFamily: "var(--font-franklin)" }}
       >
         tormenta
