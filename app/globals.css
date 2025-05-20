@@ -10,6 +10,17 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Fuentes personalizadas */
+  --font-baron: "Baron Neue", sans-serif;
+  --font-cinzel: "Cinzel", serif;
+  --font-cinzel-decorative: "Cinzel Decorative", cursive;
+  --font-gobold: "Gobold Blocky", sans-serif;
+  --font-flowers: "Flowers Kingdom", cursive;
+  --font-impact: "Impact Custom", sans-serif;
+  --font-mariana: "Mariana", sans-serif;
+  --font-mighty: "Mighty Sans", sans-serif;
+  --font-franklin: "Franklin Gothic", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +34,119 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* BARON NEUE */
+@font-face {
+  font-family: "Baron Neue";
+  src: url("/fonts/Baron Neue.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Baron Neue";
+  src: url("/fonts/Baron Neue Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Baron Neue";
+  src: url("/fonts/Baron Neue Italic.otf") format("opentype");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Baron Neue";
+  src: url("/fonts/Baron Neue Bold Italic.otf") format("opentype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* CINZEL */
+@font-face {
+  font-family: "Cinzel";
+  src: url("/fonts/Cinzel-Regular.otf") format("opentype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Cinzel";
+  src: url("/fonts/Cinzel-Bold.otf") format("opentype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Cinzel";
+  src: url("/fonts/Cinzel-Black.otf") format("opentype");
+  font-weight: 900;
+}
+
+/* CINZEL DECORATIVE */
+@font-face {
+  font-family: "Cinzel Decorative";
+  src: url("/fonts/CinzelDecorative-Regular.otf") format("opentype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Cinzel Decorative";
+  src: url("/fonts/CinzelDecorative-Bold.otf") format("opentype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Cinzel Decorative";
+  src: url("/fonts/CinzelDecorative-Black.otf") format("opentype");
+  font-weight: 900;
+}
+
+/* GOBOLD BLOCKY */
+@font-face {
+  font-family: "Gobold Blocky";
+  src: url("/fonts/Gobold Blocky Regular WebFont.woff") format("woff");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Gobold Blocky";
+  src: url("/fonts/Gobold Blocky Italic WebFont.woff") format("woff");
+  font-style: italic;
+}
+
+/* OTRAS FUENTES */
+@font-face {
+  font-family: "Flowers Kingdom";
+  src: url("/fonts/Flowers Kingdom.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Impact Custom";
+  src: url("/fonts/Impact.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Mariana";
+  src: url("/fonts/mariana.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Mighty Sans";
+  src: url("/fonts/Mighty Sans.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Franklin Gothic";
+  src: url("/fonts/Franklin Gothic ITC Book Italic BT.ttf") format("truetype");
+  font-style: italic;
+  font-weight: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }
