@@ -12,17 +12,21 @@ const fuentes = [
 const QuieroBand = () => {
   const palabras = Array.from({ length: 30 }).map((_, i) => {
     const f = fuentes[i % fuentes.length];
+
+    const isFlowers = f.font === "var(--font-flowers)";
+
     return (
       <span
         key={i}
+        className={isFlowers ? "text-sm md:text-xl" : ""}
         style={{
           fontFamily: f.font,
-          fontSize: f.size,
+          fontSize: isFlowers ? undefined : f.size,
           fontWeight: f.weight ?? "normal",
           letterSpacing: f.spacing ?? "normal",
           marginRight: "1rem",
-          lineHeight: "1", // importante
-          display: "inline-block", // previene errores de baseline
+          lineHeight: "1",
+          display: "inline-block",
         }}
       >
         QUIERO
@@ -31,7 +35,7 @@ const QuieroBand = () => {
   });
 
   return (
-    <div className="w-screen md:w-full bg-black text-white overflow-hidden py-4 whitespace-nowrap">
+    <div className="w-screen md:w-full bg-black text-white overflow-hidden py-4 whitespace-nowrap cursor-pointer hover:scale-105 transition duration-300 ease-in-out">
       <div className="marquee flex items-center">
         {palabras}
         {palabras}
