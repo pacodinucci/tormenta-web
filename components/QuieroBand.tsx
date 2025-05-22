@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 const fuentes = [
   { font: "var(--font-franklin)", size: "2rem" },
@@ -10,6 +14,7 @@ const fuentes = [
 ];
 
 const QuieroBand = () => {
+  const router = useRouter();
   const palabras = Array.from({ length: 30 }).map((_, i) => {
     const f = fuentes[i % fuentes.length];
 
@@ -35,12 +40,25 @@ const QuieroBand = () => {
   });
 
   return (
-    <div className="w-screen md:w-full bg-black text-white overflow-hidden py-4 whitespace-nowrap cursor-pointer hover:scale-105 transition duration-300 ease-in-out">
+    <motion.div
+      className="w-screen md:w-full bg-black text-white overflow-hidden py-4 whitespace-nowrap cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+      initial={{ scale: 1 }}
+      animate={{ scale: 1 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.9 }}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 15,
+        mass: 0.5,
+      }}
+      onClick={() => router.push("/tienda")}
+    >
       <div className="marquee flex items-center">
         {palabras}
         {palabras}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

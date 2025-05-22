@@ -11,7 +11,7 @@ const LandingComponent = () => {
       </div>
 
       {/* Imágenes */}
-      <div className="flex justify-center items-center w-full">
+      <div className="flex justify-center items-center -gap-x-4 md:gap-x-0 w-full">
         <Image
           src={"/image1.png"}
           alt="tormenta image"

@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="relative inline-block leading-none h-[72px] mb-16">
+    <nav className="relative h-[72px] mb-16">
       {/* <h1
         className="absolute top-0 left-0 text-6xl uppercase clip-top"
         style={{
@@ -25,7 +25,7 @@ const Navbar = () => {
         tormenta
       </h1> */}
       <h1
-        className="text-[4.7rem] md:text-9xl uppercase"
+        className="text-[4.7rem] md:text-9xl uppercase text-center"
         style={{ fontFamily: "var(--font-franklin)" }}
       >
         tormenta
