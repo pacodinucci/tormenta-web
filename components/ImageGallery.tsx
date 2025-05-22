@@ -13,7 +13,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
   return (
     <div className="flex gap-4 w-full max-w-[600px] mx-auto">
       {/* Imagen principal */}
-      <div className="relative w-[300px] md:w-[400px] h-[300px] md:h-[400px] shrink-0">
+      <div className="relative w-[50%] md:w-[400px] h-[300px] md:h-[400px] shrink-0">
         <Image
           src={images[selectedIndex].src}
           alt={images[selectedIndex].alt}
