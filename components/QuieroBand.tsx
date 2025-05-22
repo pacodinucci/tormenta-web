@@ -18,7 +18,7 @@ const QuieroBand = () => {
     return (
       <span
         key={i}
-        className={isFlowers ? "text-sm md:text-xl" : ""}
+        className={isFlowers ? "text-sm md:text-xl pt-1 md:pt-0" : ""}
         style={{
           fontFamily: f.font,
           fontSize: isFlowers ? undefined : f.size,
