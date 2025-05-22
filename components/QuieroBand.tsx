@@ -52,7 +52,7 @@ const QuieroBand = () => {
         damping: 15,
         mass: 0.5,
       }}
-      onClick={() => router.push("/tienda")}
+      onClick={() => router.push("/colors")}
     >
       <div className="marquee flex items-center">
         {palabras}
