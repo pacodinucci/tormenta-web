@@ -4,7 +4,7 @@ import QuieroBand from "./QuieroBand";
 
 const LandingComponent = () => {
   return (
-    <div className="relative w-full h-auto">
+    <div className="relative w-full h-auto overflow-x-hidden">
       {/* Cinta por encima */}
       <div className="absolute top-1/2 left-0 w-full z-10">
         <QuieroBand />
