@@ -7,6 +7,7 @@ import { useCart } from "@/store/cart";
 import ImageGallery from "./ImageGallery";
 import OutlineShadowButton from "./OutlineShadowButton";
 import toast from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 
 const images = [
   {
@@ -112,17 +113,26 @@ const Products = () => {
             Agregar al carrito
           </OutlineShadowButton>
 
-          {totalQuantity > 0 && (
-            <OutlineShadowButton
-              onClick={() => router.push("/cart")}
-              className="bg-emerald-700"
-            >
-              <div className="flex items-center gap-2">
-                <ShoppingBasket />
-                <span>{totalQuantity}</span>
-              </div>
-            </OutlineShadowButton>
-          )}
+          <AnimatePresence>
+            {totalQuantity > 0 && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, x: 10 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 0.9, x: 10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <OutlineShadowButton
+                  onClick={() => router.push("/cart")}
+                  className="bg-emerald-700"
+                >
+                  <div className="flex items-center gap-2">
+                    <ShoppingBasket />
+                    <span>{totalQuantity}</span>
+                  </div>
+                </OutlineShadowButton>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

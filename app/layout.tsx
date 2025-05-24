@@ -32,7 +32,7 @@ export default function RootLayout({
         <div className="mx-auto">
           <Navbar />
         </div>
-        <Toaster position="bottom-right" />
+        <Toaster position="top-right" />
         {children}
       </body>
     </html>
