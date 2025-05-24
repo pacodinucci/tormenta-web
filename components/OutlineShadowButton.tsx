@@ -22,6 +22,7 @@ export default function OutlineShadowButton({
           "relative z-10 px-6 py-3 uppercase font-semibold tracking-wide border-none",
           "bg-black text-white transition-colors duration-300 ease-in-out",
           "disabled:bg-gray-300 disabled:text-zinc-900 disabled:cursor-not-allowed",
+          "min-h-[48px]",
           className
         )}
       >

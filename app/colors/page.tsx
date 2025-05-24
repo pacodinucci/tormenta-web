@@ -23,7 +23,7 @@ const ColorsPage = () => {
   return (
     <div>
       <div
-        className="text-right mr-12 uppercase"
+        className="text-right mr-6 uppercase"
         style={{ fontFamily: "var(--font-gobold)" }}
       >
         <h1 className="text-4xl">$1300 mxn</h1>

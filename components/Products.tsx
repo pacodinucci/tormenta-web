@@ -87,7 +87,7 @@ const Products = () => {
         </h3>
       </div>
       <ImageGallery images={images} />
-      <div className="flex flex-col min-w-[75%] md:min-w-[600px] justify-center md:items-center gap-y-6 w-full px-8 pt-6">
+      <div className="flex flex-col min-w-[75%] md:min-w-[600px] justify-center md:items-center gap-y-6 w-full pl-6 pr-2 pt-6">
         <div className="flex gap-x-4">
           <OutlineShadowButton
             onClick={() => setSelectedSize("small")}
