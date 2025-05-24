@@ -6,6 +6,7 @@ interface CartItem {
   color: string;
   size: string;
   quantity: number;
+  price: number;
   image?: string;
 }
 
@@ -14,6 +15,7 @@ interface CartState {
   addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
   clearCart: () => void;
+  updateCartItem: (id: string, quantity: number) => void;
 }
 
 export const useCart = create<CartState>((set) => ({
@@ -40,4 +42,11 @@ export const useCart = create<CartState>((set) => ({
     })),
 
   clearCart: () => set({ items: [] }),
+
+  updateCartItem: (id, quantity) =>
+    set((state) => ({
+      items: state.items.map((item) =>
+        item.id === id ? { ...item, quantity } : item
+      ),
+    })),
 }));

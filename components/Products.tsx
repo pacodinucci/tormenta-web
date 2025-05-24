@@ -41,6 +41,7 @@ const baseProduct = {
   name: "Raincoat",
   color: "Bugambilia",
   image: "/image2.jpg",
+  price: 8000,
 };
 
 const Products = () => {
@@ -63,6 +64,7 @@ const Products = () => {
       color: baseProduct.color,
       size: selectedSize,
       quantity: 1,
+      price: baseProduct.price,
       image: baseProduct.image,
     });
 
