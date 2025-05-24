@@ -16,6 +16,8 @@ const CartComponent = () => {
     console.log(cart);
   }, [cart]);
 
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
   return (
     <div>
       <h1
@@ -51,12 +53,12 @@ const CartComponent = () => {
                   />
                 </div>
 
-                <div className="flex flex-col justify-between gap-12 mt-4 md:mt-0 flex-1">
+                <div className="flex flex-col justify-between gap-4 mt-4 md:mt-0 flex-1">
                   <div className="flex items-center justify-between pr-4">
-                    <div className="flex gap-4 items-center">
-                      <p className="text-2xl font-medium">{item.name}</p>
-                      <p className="text-lg font-medium">Talla {item.size}</p>
-                    </div>
+                    <p className="text-2xl font-medium">{item.name}</p>
+                  </div>
+                  <div className="flex gap-4 items-center justify-between mr-4">
+                    <p className="text-lg font-medium">Talla {item.size}</p>
                     <Trash2
                       className="cursor-pointer text-red-600 mt-1"
                       size={24}
@@ -92,7 +94,7 @@ const CartComponent = () => {
                         {formatNumber(price * boxSize * quantity)}
                       </p>
                     )} */}
-                      <p className="text-lg font-semibold">
+                      <p className="text-2xl font-semibold">
                         {formatNumber(price * quantity)}
                       </p>
                       {/* {discount > 0 && (
@@ -108,13 +110,33 @@ const CartComponent = () => {
             );
           })}
 
+          <div className="flex justify-between items-center p-2 mt-6 mr-2 px-2 text-white bg-black">
+            <p
+              className="text-2xl font-semibold"
+              style={{ fontFamily: "var(--font-baron)" }}
+            >
+              Total
+            </p>
+            <p
+              className="text-2xl font-bold"
+              style={{ fontFamily: "var(--font-baron)" }}
+            >
+              {formatNumber(total)}
+            </p>
+          </div>
+
           <div className="flex gap-x-2 mt-6">
             <input
-              className="max-w-60 rounded-none"
+              className="max-w-60 rounded-none outline-1"
               placeholder="Código del cupón"
             />
             <OutlineShadowButton className="rounded-none bg-darkCustom hover:bg-darkCustom/90">
-              Aplicar el cupón
+              Aplicar cupón
+            </OutlineShadowButton>
+          </div>
+          <div className="mt-8">
+            <OutlineShadowButton className="min-w-[90vw]">
+              Continuar
             </OutlineShadowButton>
           </div>
         </>
