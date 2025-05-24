@@ -18,7 +18,12 @@ const CartComponent = () => {
 
   return (
     <div>
-      <h1>Revisa tu compra</h1>
+      <h1
+        className="text-5xl mb-4 ml-4"
+        style={{ fontFamily: "var(--font-gobold)" }}
+      >
+        Revisa tu compra
+      </h1>
 
       {cart.length === 0 ? (
         <p>Tu carrito está vacío.</p>
@@ -35,6 +40,7 @@ const CartComponent = () => {
               <div
                 key={item.id}
                 className="flex flex-row gap-2 items-start border-b border-slate-200 pb-4"
+                style={{ fontFamily: "var(--font-baron" }}
               >
                 <div className="flex items-center gap-x-4 w-auto">
                   <Image
@@ -53,7 +59,7 @@ const CartComponent = () => {
                     </div>
                     <Trash2
                       className="cursor-pointer text-red-600 mt-1"
-                      size={18}
+                      size={24}
                       onClick={() => removeFromCart(item.id)}
                     />
                   </div>
