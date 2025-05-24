@@ -34,63 +34,69 @@ const CartComponent = () => {
             return (
               <div
                 key={item.id}
-                className="flex flex-col md:flex-row justify-between items-center border-b border-slate-200 pb-4"
+                className="flex flex-row gap-2 items-start border-b border-slate-200 pb-4"
               >
-                <div className="flex items-center gap-x-4 w-full md:w-auto">
+                <div className="flex items-center gap-x-4 w-auto">
                   <Image
                     src={item.image || ""}
                     alt={item.name}
-                    width={60}
-                    height={60}
+                    width={100}
+                    height={100}
                   />
-                  <p className="text-lg font-medium">{item.name}</p>
                 </div>
 
-                <div className="flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0">
-                  <div className="flex items-center border border-gray-300 px-2 py-1">
-                    <button
-                      onClick={() => updateCartItem(item.id, quantity - 1)}
-                    >
-                      <Minus size={16} />
-                    </button>
-                    <input
-                      type="number"
-                      value={quantity}
-                      min={0}
-                      onChange={(e) =>
-                        updateCartItem(item.id, Number(e.target.value))
-                      }
-                      className="w-10 text-center bg-transparent focus:outline-none"
+                <div className="flex flex-col justify-between gap-12 mt-4 md:mt-0 flex-1">
+                  <div className="flex items-center justify-between pr-4">
+                    <div className="flex gap-4 items-center">
+                      <p className="text-2xl font-medium">{item.name}</p>
+                      <p className="text-lg font-medium">Talla {item.size}</p>
+                    </div>
+                    <Trash2
+                      className="cursor-pointer text-red-600 mt-1"
+                      size={18}
+                      onClick={() => removeFromCart(item.id)}
                     />
-                    <button
-                      onClick={() => updateCartItem(item.id, quantity + 1)}
-                    >
-                      <Plus size={16} />
-                    </button>
                   </div>
+                  <div className="flex items-center justify-between pr-4">
+                    <div className="flex items-center border border-gray-300 px-2 py-1">
+                      <button
+                        onClick={() => updateCartItem(item.id, quantity - 1)}
+                      >
+                        <Minus size={16} />
+                      </button>
+                      <input
+                        type="number"
+                        value={quantity}
+                        min={0}
+                        onChange={(e) =>
+                          updateCartItem(item.id, Number(e.target.value))
+                        }
+                        className="w-10 text-center bg-transparent focus:outline-none"
+                      />
+                      <button
+                        onClick={() => updateCartItem(item.id, quantity + 1)}
+                      >
+                        <Plus size={16} />
+                      </button>
+                    </div>
 
-                  <div className="text-right">
-                    {/* {discount > 0 && (
+                    <div className="text-right">
+                      {/* {discount > 0 && (
                       <p className="line-through text-sm text-gray-500">
                         {formatNumber(price * boxSize * quantity)}
                       </p>
                     )} */}
-                    <p className="text-lg font-semibold">
-                      {formatNumber(price * quantity)}
-                    </p>
-                    {/* {discount > 0 && (
+                      <p className="text-lg font-semibold">
+                        {formatNumber(price * quantity)}
+                      </p>
+                      {/* {discount > 0 && (
                       <p className="text-green-600 text-sm">
                         Ahorraste{" "}
                         {formatNumber((price - discountedPrice) * quantity)}
                       </p>
                     )} */}
+                    </div>
                   </div>
-
-                  <Trash2
-                    className="cursor-pointer text-red-600"
-                    size={18}
-                    onClick={() => removeFromCart(item.id)}
-                  />
                 </div>
               </div>
             );
