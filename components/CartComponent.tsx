@@ -110,7 +110,7 @@ const CartComponent = () => {
             );
           })}
 
-          <div className="flex justify-between items-center p-2 mt-6 mr-2 px-2 text-white bg-black">
+          <div className="flex justify-between items-center p-2 mt-6 mr-2 px-2 text-white bg-zinc-800">
             <p
               className="text-2xl font-semibold"
               style={{ fontFamily: "var(--font-baron)" }}
