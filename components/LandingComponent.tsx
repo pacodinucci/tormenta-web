@@ -4,9 +4,9 @@ import QuieroBand from "./QuieroBand";
 
 const LandingComponent = () => {
   return (
-    <div className="relative w-full h-auto overflow-x-hidden">
+    <div className="relative w-full h-auto overflow-x-hidden pb-12">
       {/* Cinta por encima */}
-      <div className="absolute top-1/2 left-0 w-full z-10">
+      <div className="absolute bottom-0 left-0 w-full z-10">
         <QuieroBand />
       </div>
 
@@ -25,7 +25,7 @@ const LandingComponent = () => {
           height={0}
         /> */}
         <Image
-          src={"/landingImage.png"}
+          src={"/landingLogo.png"}
           alt="Tormenta Rainwear"
           width={800}
           height={0}
