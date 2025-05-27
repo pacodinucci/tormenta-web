@@ -41,6 +41,7 @@ const FormComponent = () => {
       const checkoutUrl = await createCheckoutSession(cart, metadata);
 
       if (checkoutUrl) {
+        console.log(checkoutUrl);
         window.location.href = checkoutUrl;
       }
     } catch (error) {
@@ -52,7 +53,10 @@ const FormComponent = () => {
 
   return (
     <form
-      onSubmit={handleCheckout}
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleCheckout();
+      }}
       className="w-full max-w-md mx-auto flex flex-col gap-8 p-6 bg-white"
     >
       <h2

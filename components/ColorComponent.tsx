@@ -25,7 +25,7 @@ const ColorComponent = ({ title, description, src }: ColorComponentProps) => {
         >
           {title}
         </h1>
-        <h3 style={{ fontFamily: "var(--font-baron)" }} className="text-xl">
+        <h3 style={{ fontFamily: "var(--font-baron)" }} className="text-base">
           {description}
         </h3>
       </div>

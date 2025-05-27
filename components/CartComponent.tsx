@@ -6,8 +6,10 @@ import OutlineShadowButton from "./OutlineShadowButton";
 import { formatNumber } from "@/lib/formatNumber";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const CartComponent = () => {
+  const router = useRouter();
   const cart = useCart((state) => state.items);
   const updateCartItem = useCart((state) => state.updateCartItem);
   const removeFromCart = useCart((state) => state.removeItem);
@@ -21,7 +23,7 @@ const CartComponent = () => {
   return (
     <div>
       <h1
-        className="text-5xl mb-4 ml-4"
+        className="text-5xl mb-4 ml-2"
         style={{ fontFamily: "var(--font-gobold)" }}
       >
         Revisa tu compra
@@ -135,7 +137,10 @@ const CartComponent = () => {
             </OutlineShadowButton>
           </div>
           <div className="mt-8">
-            <OutlineShadowButton className="min-w-[90vw]">
+            <OutlineShadowButton
+              className="min-w-[90vw]"
+              onClick={() => router.push("/form")}
+            >
               Continuar
             </OutlineShadowButton>
           </div>

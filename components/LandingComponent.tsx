@@ -12,7 +12,7 @@ const LandingComponent = () => {
 
       {/* Imágenes */}
       <div className="flex justify-center items-center -gap-x-4 md:gap-x-0 w-full">
-        <Image
+        {/* <Image
           src={"/image1.png"}
           alt="tormenta image"
           width={300}
@@ -22,6 +22,12 @@ const LandingComponent = () => {
           src={"/image2.jpg"}
           alt="tormenta image"
           width={300}
+          height={0}
+        /> */}
+        <Image
+          src={"/landingImage.png"}
+          alt="Tormenta Rainwear"
+          width={800}
           height={0}
         />
       </div>

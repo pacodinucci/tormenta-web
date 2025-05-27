@@ -13,6 +13,7 @@ export async function createCheckoutSession(
   cart: CartItem[],
   metadata: Metadata
 ) {
+  console.log("CART -> ", cart);
   try {
     const itemsWithoutPrice = cart.filter((item) => !item.price);
     if (itemsWithoutPrice.length > 0) {
@@ -54,7 +55,7 @@ export async function createCheckoutSession(
             metadata: {
               id: item.id,
             },
-            images: item.image ? [item.image] : undefined,
+            // images: item.image ? [item.image] : undefined,
           },
         },
         quantity: item.quantity,
