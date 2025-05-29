@@ -8,7 +8,7 @@ const AdminPage = () => {
 
   console.log("DATA -> ", data);
 
-  if (data?.user.role !== "ADMIN") {
+  if (data?.user?.role !== "ADMIN") {
     window.location.href = "/";
   }
 
