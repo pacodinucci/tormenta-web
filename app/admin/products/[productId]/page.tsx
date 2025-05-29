@@ -1,9 +1,12 @@
 import { getProductById } from "@/actions/getProductById";
 import AddProductForm from "@/components/AddProductForm";
-import React from "react";
 
-const ProductIdPage = async ({ params }: { params: { productId: string } }) => {
-  const product = await getProductById(params.productId);
+type Params = Promise<{ productId: string }>;
+
+const ProductIdPage = async (props: { params: Params }) => {
+  const params = await props.params;
+  const productId = params.productId;
+  const product = await getProductById(productId);
 
   return (
     <div>
