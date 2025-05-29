@@ -15,7 +15,7 @@ const LoginForm = () => {
 
   const [error, setError] = useState("");
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: unknown) => {
     setError("");
 
     const result = await signIn("credentials", {

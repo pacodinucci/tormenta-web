@@ -15,7 +15,7 @@ const RegisterForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: unknown) => {
     setError("");
     setSuccess("");
 
