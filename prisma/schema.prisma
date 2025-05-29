@@ -1,14 +1,101 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+    provider = "prisma-client-js"
+}
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
 
-// generator client {
-//   provider = "prisma-client-js"
-// }
+model CartItem {
+    id         String    @id
+    orderId    String
+    quantity   Int
+    price      Int
+    productsId String?
+    stockId    String
+    Order      Order     @relation(fields: [orderId], references: [id])
+    Products   Products? @relation(fields: [productsId], references: [id])
+    Stock      Stock     @relation(fields: [stockId], references: [id])
+}
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
+model Customer {
+    id        String   @id
+    name      String
+    email     String   @unique
+    phone     String
+    address   String
+    zipCode   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime
+    Order     Order[]
+}
+
+model Order {
+    id          String     @id
+    customerId  String
+    isPaid      Boolean    @default(false)
+    isDelivered Boolean    @default(false)
+    total       Int
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime
+    CartItem    CartItem[]
+    Customer    Customer   @relation(fields: [customerId], references: [id])
+}
+
+model Products {
+    id          String     @id @default(uuid())
+    name        String
+    description String
+    price       Int
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+    colors      String[]
+    CartItem    CartItem[]
+    Stock       Stock[]
+}
+
+model Stock {
+    id        String     @id
+    productId String
+    color     String
+    size      String
+    quantity  Int        @default(0)
+    CartItem  CartItem[]
+    Products  Products   @relation(fields: [productId], references: [id])
+}
+
+model Account {
+    id                  String  @id
+    user_id             String
+    type                String
+    provider            String
+    provider_account_id String
+    refresh_token       String?
+    access_token        String?
+    expires_at          Int?
+    token_type          String?
+    scope               String?
+    id_token            String?
+    session_state       String?
+    users               User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+    @@unique([provider, provider_account_id])
+}
+
+model User {
+    id             String    @id @default(uuid())
+    name           String?
+    email          String?   @unique
+    email_verified DateTime?
+    image          String?
+    password       String?
+    role           UserRole  @default(USER)
+    phone          String?
+    accounts       Account[]
+}
+
+enum UserRole {
+    ADMIN
+    USER
+}
