@@ -7,6 +7,11 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+    ADMIN
+    USER
+}
+
 model CartItem {
     id         String    @id
     orderId    String
@@ -93,9 +98,4 @@ model User {
     role           UserRole  @default(USER)
     phone          String?
     accounts       Account[]
-}
-
-enum UserRole {
-    ADMIN
-    USER
 }
