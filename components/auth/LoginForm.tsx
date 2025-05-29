@@ -6,27 +6,34 @@ import { useState } from "react";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import UnderlineInput from "../ui/UnderlineInput";
 
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<LoginFormValues>();
 
   const [error, setError] = useState("");
 
-  const onSubmit = async (data: unknown) => {
+  const onSubmit = async (data: LoginFormValues) => {
     setError("");
 
     const result = await signIn("credentials", {
-      redirect: true,
+      redirect: false, // importante: si querés manejar el redirect manualmente
       email: data.email,
       password: data.password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      callbackUrl: DEFAULT_LOGIN_REDIRECT,
     });
 
     if (result?.error) {
       setError("Email o contraseña incorrectos");
+    } else if (result?.url) {
+      window.location.href = result.url;
     }
   };
 

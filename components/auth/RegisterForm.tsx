@@ -5,17 +5,23 @@ import { useForm } from "react-hook-form";
 import { register as registerUser } from "@/actions/register";
 import UnderlineInput from "../ui/UnderlineInput";
 
+interface RegisterFormProps {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const RegisterForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<RegisterFormProps>();
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const onSubmit = async (data: unknown) => {
+  const onSubmit = async (data: RegisterFormProps) => {
     setError("");
     setSuccess("");
 
