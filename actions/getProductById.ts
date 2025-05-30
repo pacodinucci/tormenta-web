@@ -7,6 +7,9 @@ export const getProductById = async (productId: string | undefined) => {
     where: {
       id: productId,
     },
+    include: {
+      images: true,
+    },
   });
 
   if (!product) return null;

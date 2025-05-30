@@ -26,7 +26,7 @@ const AdminLayout = ({
         {!isMobile && (
           <button
             onClick={() => setIsSidebarOpen((prev) => !prev)}
-            className="absolute top-4 left-12 -translate-x-full z-30 w-8 h-8 rounded-full bg-white border border-black flex items-center justify-center shadow-md"
+            className="absolute top-4 left-12 -translate-x-full z-30 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md cursor-pointer"
           >
             <Image
               src="/logo.png"

@@ -10,6 +10,7 @@ import { X } from "lucide-react";
 const links = [
   { href: "/admin", label: "Inicio" },
   { href: "/admin/products", label: "Productos" },
+  { href: "/admin/stock", label: "Stock" },
   { href: "/admin/orders", label: "Órdenes" },
   { href: "/admin/customers", label: "Clientes" },
 ];

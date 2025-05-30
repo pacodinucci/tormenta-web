@@ -8,7 +8,12 @@ const ProductsPage = async () => {
 
   return (
     <div>
-      <AdminPageHeader title="Productos" />
+      <AdminPageHeader
+        title="Productos"
+        hasAddButton
+        addButtonLabel="Nuevo"
+        link="/admin/products/new"
+      />
       <ProductsTableWrapper products={products} />
     </div>
   );

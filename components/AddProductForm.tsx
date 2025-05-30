@@ -1,18 +1,31 @@
 "use client";
 
-import { Products } from "@prisma/client";
+import { ProductImage, Products } from "@prisma/client";
+import Image from "next/image";
 import { useState } from "react";
+import { ImageUpload } from "./ImageUpload";
+
+interface ProductWithImages extends Products {
+  images: ProductImage[];
+}
 
 interface AddProductFormProps {
-  initialData: Products | null;
+  initialData: ProductWithImages | null;
 }
 
 export default function AddProductForm({ initialData }: AddProductFormProps) {
+  if (initialData) console.log(initialData);
+
   const [formData, setFormData] = useState({
     name: initialData?.name || "",
     description: initialData?.description || "",
     price: initialData?.price || "",
     colors: initialData?.colors?.join(", ") || "",
+    images:
+      initialData?.images?.map((img) => ({
+        url: img.url,
+        color: img.color,
+      })) || [],
   });
 
   const [loading, setLoading] = useState(false);
@@ -42,7 +55,7 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
         },
         body: JSON.stringify({
           ...formData,
-          price: initialData?.price?.toString() || "",
+          price: Number(formData.price) || "",
           colors: formData.colors.split(",").map((c) => c.trim()),
         }),
       });
@@ -54,6 +67,7 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
           description: "",
           price: "",
           colors: "",
+          images: [] as { url: string; color: string }[],
         });
       } else {
         setError("Error al crear el producto.");
@@ -64,6 +78,13 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAddImageByColor = (url: string, color: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: [...prev.images, { url, color }],
+    }));
   };
 
   return (
@@ -128,6 +149,43 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
           className="w-full border-b border-gray-400 focus:outline-none py-1"
         />
       </div>
+
+      {formData.colors
+        .split(",")
+        .map((color) => color.trim())
+        .filter((color) => color !== "")
+        .map((color) => {
+          const imagesForColor = formData.images.filter(
+            (img) => img.color === color
+          );
+
+          return (
+            <div key={color} className="mb-4">
+              <h4 className="text-sm font-semibold mb-1 capitalize">{color}</h4>
+              <div className="flex flex-wrap gap-2">
+                {imagesForColor.map((img, idx) => (
+                  <div
+                    key={idx}
+                    className="relative w-20 h-20 border border-gray-300 rounded"
+                  >
+                    <Image
+                      src={img.url}
+                      alt={`Imagen ${idx + 1}`}
+                      fill
+                      className="rounded object-cover"
+                    />
+                  </div>
+                ))}
+                <div className="relative w-20 h-20 border border-dashed border-gray-400 rounded flex items-center justify-center hover:opacity-70 transition">
+                  <ImageUpload
+                    value=""
+                    onChange={(url) => handleAddImageByColor(url, color)}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
 
       <button
         type="submit"
