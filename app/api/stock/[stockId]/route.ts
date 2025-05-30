@@ -3,12 +3,12 @@ import db from "@/lib/db";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { stockId: string } }
+  { params }: { params: Promise<{ stockId: string }> }
 ) {
   try {
     const body = await req.json();
     const { productId, color, size, quantity } = body;
-    const { stockId } = params;
+    const { stockId } = await params;
 
     if (!stockId) {
       return new NextResponse("Falta el ID del stock", { status: 400 });
