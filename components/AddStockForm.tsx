@@ -1,7 +1,9 @@
 "use client";
 
-import { Stock } from "@prisma/client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Stock } from "@prisma/client";
+import toast from "react-hot-toast";
 
 interface Product {
   id: string;
@@ -14,6 +16,7 @@ interface AddStockFormProps {
 }
 
 export default function AddStockForm({ initialData }: AddStockFormProps) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     productId: initialData?.productId || "",
     color: initialData?.color || "",
@@ -23,8 +26,6 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
 
   const isEditMode = !!initialData;
 
@@ -54,8 +55,8 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setSuccess("");
-    setError("");
+    // setSuccess("");
+    // setError("");
 
     try {
       const endpoint = isEditMode
@@ -76,7 +77,7 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
       });
 
       if (res.ok) {
-        setSuccess(
+        toast.success(
           isEditMode
             ? "Stock actualizado correctamente."
             : "Stock agregado correctamente."
@@ -89,12 +90,13 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
             quantity: 0,
           });
         }
+        router.push("/admin/stock");
       } else {
-        setError("Error al agregar stock.");
+        toast.error("Error al agregar stock.");
       }
     } catch (error) {
       console.error(error);
-      setError("Error al enviar los datos.");
+      toast.error("Error al enviar los datos.");
     } finally {
       setLoading(false);
     }
@@ -195,9 +197,6 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
           ? "Guardar cambios"
           : "Agregar Stock"}
       </button>
-
-      {success && <p className="text-green-600">{success}</p>}
-      {error && <p className="text-red-600">{error}</p>}
     </form>
   );
 }

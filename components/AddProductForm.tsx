@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ProductImage, Products } from "@prisma/client";
 import Image from "next/image";
-import { useState } from "react";
 import { ImageUpload } from "./ImageUpload";
 import { X } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface ProductWithImages extends Products {
   images: ProductImage[];
@@ -15,6 +17,7 @@ interface AddProductFormProps {
 }
 
 export default function AddProductForm({ initialData }: AddProductFormProps) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: initialData?.name || "",
     description: initialData?.description || "",
@@ -28,8 +31,6 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
   });
 
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
 
   const isEditMode = !!initialData;
 
@@ -45,8 +46,6 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setSuccess("");
-    setError("");
 
     try {
       const endpoint = isEditMode
@@ -68,10 +67,10 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
       });
 
       if (res.ok) {
-        setSuccess(
+        toast.success(
           isEditMode
             ? "Producto actualizado correctamente."
-            : "Producto creado correctamente."
+            : "Producto agregado correctamente."
         );
 
         if (!isEditMode) {
@@ -83,8 +82,9 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
             images: [] as { url: string; color: string }[],
           });
         }
+        router.push("/admin/products");
       } else {
-        setError(
+        toast.error(
           isEditMode
             ? "Error al actualizar el producto."
             : "Error al crear el producto."
@@ -92,7 +92,7 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
       }
     } catch (error) {
       console.error(error);
-      setError("Error al enviar los datos.");
+      toast.error("Error al enviar los datos.");
     } finally {
       setLoading(false);
     }
@@ -235,9 +235,6 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
           ? "Guardar Producto"
           : "Agregar Producto"}
       </button>
-
-      {success && <p className="text-green-600">{success}</p>}
-      {error && <p className="text-red-600">{error}</p>}
     </form>
   );
 }
