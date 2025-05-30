@@ -49,13 +49,11 @@ export default function DataTable({
               const id = row[rowIdKey]?.toString();
               return (
                 <tr key={id || idx} className="hover:bg-gray-50 h-10">
-                  {/* {columns.map((col) => (
-                    <td key={col} className="px-4 py-2 border-b">
-                      {formatCell(row[col])}
-                    </td>
-                  ))} */}
                   {columns.map((col) => (
-                    <td key={col} className="px-4 py-2 border-b">
+                    <td
+                      key={col}
+                      className="px-4 py-2 border-b max-w-[200px] truncate whitespace-nowrap overflow-hidden"
+                    >
                       {formatCell(row[col], col)}
                     </td>
                   ))}

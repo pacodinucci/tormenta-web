@@ -26,6 +26,8 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
+  const isEditMode = !!initialData;
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -56,8 +58,14 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
     setError("");
 
     try {
-      const res = await fetch("/api/stock", {
-        method: "POST",
+      const endpoint = isEditMode
+        ? `/api/stock/${initialData.id}`
+        : "/api/stock";
+
+      const method = isEditMode ? "PATCH" : "POST";
+
+      const res = await fetch(endpoint, {
+        method,
         headers: {
           "Content-Type": "application/json",
         },
@@ -68,13 +76,19 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
       });
 
       if (res.ok) {
-        setSuccess("Stock agregado correctamente.");
-        setFormData({
-          productId: "",
-          color: "",
-          size: "",
-          quantity: 0,
-        });
+        setSuccess(
+          isEditMode
+            ? "Stock actualizado correctamente."
+            : "Stock agregado correctamente."
+        );
+        if (!isEditMode) {
+          setFormData({
+            productId: "",
+            color: "",
+            size: "",
+            quantity: 0,
+          });
+        }
       } else {
         setError("Error al agregar stock.");
       }
@@ -98,7 +112,7 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
         className="text-2xl font-bold tracking-wider"
         style={{ fontFamily: "var(--font-impact)" }}
       >
-        Agregar Stock
+        {isEditMode ? "Editar Stock" : "Agregar Stock"}
       </h2>
 
       {/* Producto */}
@@ -175,7 +189,11 @@ export default function AddStockForm({ initialData }: AddStockFormProps) {
         disabled={loading}
         className="w-full py-2 bg-black text-white rounded hover:bg-gray-800 transition"
       >
-        {loading ? "Guardando..." : "Agregar Stock"}
+        {loading
+          ? "Guardando..."
+          : isEditMode
+          ? "Guardar cambios"
+          : "Agregar Stock"}
       </button>
 
       {success && <p className="text-green-600">{success}</p>}

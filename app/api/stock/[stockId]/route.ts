@@ -38,3 +38,33 @@ export async function PATCH(
     return new NextResponse("Error interno del servidor", { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ stockId: string }> }
+) {
+  try {
+    const { stockId } = await params;
+
+    if (!stockId) {
+      return new NextResponse("Falta el ID del stock", { status: 400 });
+    }
+
+    const existing = await db.stock.findUnique({
+      where: { id: stockId },
+    });
+
+    if (!existing) {
+      return new NextResponse("Stock no encontrado", { status: 404 });
+    }
+
+    await db.stock.delete({
+      where: { id: stockId },
+    });
+
+    return new NextResponse("Stock eliminado correctamente", { status: 200 });
+  } catch (error) {
+    console.error("Error al eliminar stock:", error);
+    return new NextResponse("Error interno del servidor", { status: 500 });
+  }
+}

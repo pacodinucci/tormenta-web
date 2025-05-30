@@ -14,8 +14,6 @@ interface AddProductFormProps {
 }
 
 export default function AddProductForm({ initialData }: AddProductFormProps) {
-  if (initialData) console.log(initialData);
-
   const [formData, setFormData] = useState({
     name: initialData?.name || "",
     description: initialData?.description || "",
@@ -31,6 +29,8 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+
+  const isEditMode = !!initialData;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -48,29 +48,46 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
     setError("");
 
     try {
-      const res = await fetch("/api/products", {
-        method: "POST",
+      const endpoint = isEditMode
+        ? `/api/products/${initialData.id}`
+        : "/api/products";
+
+      const method = isEditMode ? "PATCH" : "POST";
+
+      const res = await fetch(endpoint, {
+        method,
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...formData,
-          price: Number(formData.price) || "",
+          price: Number(formData.price),
           colors: formData.colors.split(",").map((c) => c.trim()),
         }),
       });
 
       if (res.ok) {
-        setSuccess("Producto creado correctamente.");
-        setFormData({
-          name: "",
-          description: "",
-          price: "",
-          colors: "",
-          images: [] as { url: string; color: string }[],
-        });
+        setSuccess(
+          isEditMode
+            ? "Producto actualizado correctamente."
+            : "Producto creado correctamente."
+        );
+
+        if (!isEditMode) {
+          setFormData({
+            name: "",
+            description: "",
+            price: "",
+            colors: "",
+            images: [] as { url: string; color: string }[],
+          });
+        }
       } else {
-        setError("Error al crear el producto.");
+        setError(
+          isEditMode
+            ? "Error al actualizar el producto."
+            : "Error al crear el producto."
+        );
       }
     } catch (error) {
       console.error(error);
@@ -97,7 +114,7 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
         className="text-2xl font-bold tracking-wider"
         style={{ fontFamily: "var(--font-impact)" }}
       >
-        Agregar Producto
+        {initialData ? "Editar Producto" : "Agregar Producto"}
       </h2>
 
       <div>
