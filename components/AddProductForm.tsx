@@ -4,6 +4,7 @@ import { ProductImage, Products } from "@prisma/client";
 import Image from "next/image";
 import { useState } from "react";
 import { ImageUpload } from "./ImageUpload";
+import { X } from "lucide-react";
 
 interface ProductWithImages extends Products {
   images: ProductImage[];
@@ -104,6 +105,15 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
     }));
   };
 
+  const handleRemoveImage = (url: string, color: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter(
+        (img) => !(img.url === url && img.color === color)
+      ),
+    }));
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -191,8 +201,18 @@ export default function AddProductForm({ initialData }: AddProductFormProps) {
                       fill
                       className="rounded object-cover"
                     />
+
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveImage(img.url, img.color)}
+                      className="absolute -top-1 -right-1 bg-gray-300 text-white text-xs rounded-full w-3 h-3 flex items-center justify-center hover:bg-gray-400"
+                      title="Eliminar imagen"
+                    >
+                      <X />
+                    </button>
                   </div>
                 ))}
+
                 <div className="relative w-20 h-20 border border-dashed border-gray-400 rounded flex items-center justify-center hover:opacity-70 transition">
                   <ImageUpload
                     value=""
