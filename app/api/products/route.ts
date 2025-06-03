@@ -43,6 +43,9 @@ export async function GET() {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        images: true,
+      },
     });
 
     return NextResponse.json(products);

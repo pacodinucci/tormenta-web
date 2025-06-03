@@ -14,8 +14,8 @@ const ColorComponent = ({ title, description, src }: ColorComponentProps) => {
   const router = useRouter();
   return (
     <div
-      className="flex items-center mt-8 ml-6"
-      onClick={() => router.push("/tienda")}
+      className="flex items-center mt-8 ml-6 cursor-pointer"
+      onClick={() => router.push(`/tienda?color=${title}`)}
     >
       <Image src={src} alt={title} width={100} height={0} />
       <div className="flex items-center gap-4">

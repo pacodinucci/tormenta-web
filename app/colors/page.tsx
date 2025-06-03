@@ -21,7 +21,7 @@ const colors = [
 
 const ColorsPage = () => {
   return (
-    <div>
+    <div className="md:px-24">
       <div
         className="text-right mr-6 uppercase"
         style={{ fontFamily: "var(--font-gobold)" }}

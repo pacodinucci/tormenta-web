@@ -15,8 +15,8 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
       {/* Imagen principal */}
       <div className="relative w-[70%] md:w-[400px] h-[300px] md:h-[400px] shrink-0">
         <Image
-          src={images[selectedIndex].src}
-          alt={images[selectedIndex].alt}
+          src={images[selectedIndex]?.src}
+          alt={images[selectedIndex]?.alt}
           fill
           style={{ objectFit: "contain" }}
         />

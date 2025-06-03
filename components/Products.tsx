@@ -1,40 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ShoppingBasket } from "lucide-react";
 import { useCart } from "@/store/cart";
 import ImageGallery from "./ImageGallery";
 import OutlineShadowButton from "./OutlineShadowButton";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
-
-const images = [
-  {
-    src: "/image2.jpg",
-    alt: "Product 1",
-  },
-  {
-    src: "/rosa2.jpg",
-    alt: "Product 1",
-  },
-  {
-    src: "/rosa3.jpg",
-    alt: "Product 1",
-  },
-  {
-    src: "/rosa4.png",
-    alt: "Product 1",
-  },
-  {
-    src: "/rosa5.jpg",
-    alt: "Product 1",
-  },
-  {
-    src: "/rosa6.png",
-    alt: "Product 1",
-  },
-];
+import { useProductStore } from "@/store/product";
 
 const baseProduct = {
   id: "rosa-bugambilia",
@@ -46,10 +20,47 @@ const baseProduct = {
 
 const Products = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const color = searchParams.get("color");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const addItem = useCart((state) => state.addItem);
   const items = useCart((state) => state.items);
   const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
+  const { fetchProducts, products, loading, error } = useProductStore();
+  const [matchingImages, setMatchingImages] = useState<
+    { src: string; alt: string }[]
+  >([]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    if (!color || products.length === 0) return;
+
+    const result = products
+      .flatMap((product) => product.images)
+      .filter(
+        (img) =>
+          typeof img.color === "string" &&
+          img.color.toLowerCase().includes(color.toLowerCase())
+      )
+      .map((img) => ({
+        src: img.url,
+        alt: `Imagen de ${img.color}`,
+      }));
+
+    console.log("IMÁGENES FILTRADAS:", result);
+
+    setMatchingImages(result);
+  }, [products, color]);
+
+  useEffect(() => {
+    console.log(matchingImages);
+  }, [matchingImages]);
+
+  if (loading) return <p>Cargando productos...</p>;
+  if (error) return <p>{error}</p>;
 
   const handleAddProduct = () => {
     console.log("agregar producto!");
@@ -72,6 +83,17 @@ const Products = () => {
     toast.success("Producto agregado al carrito.");
   };
 
+  const tituloColor = color?.toLowerCase() || "";
+  let subtitulo = "";
+
+  if (tituloColor === "negro") {
+    subtitulo = "azulado";
+  } else if (tituloColor === "verde") {
+    subtitulo = "navy";
+  } else if (tituloColor === "rosa") {
+    subtitulo = "rosa";
+  }
+
   return (
     <div className="flex flex-col justify-center items-center gap-y-4 pb-24">
       <div className="min-w-[75%] md:min-w-[600px] flex items-center gap-2">
@@ -79,16 +101,18 @@ const Products = () => {
           style={{ fontFamily: "var(--font-baron)" }}
           className="text-7xl uppercase"
         >
-          rosa
+          {tituloColor}
         </h1>
-        <h3
-          style={{ fontFamily: "var(--font-baron)" }}
-          className="pt-3 text-2xl"
-        >
-          bugambilia
-        </h3>
+        {subtitulo && (
+          <h3
+            style={{ fontFamily: "var(--font-baron)" }}
+            className="pt-3 text-2xl"
+          >
+            {subtitulo}
+          </h3>
+        )}
       </div>
-      <ImageGallery images={images} />
+      <ImageGallery images={matchingImages} />
       <div className="flex flex-col min-w-[75%] md:min-w-[600px] justify-center md:items-center gap-y-6 w-full pl-6 pr-2 pt-6">
         <div className="flex gap-x-4">
           <OutlineShadowButton
