@@ -40,7 +40,9 @@ ImageUploadProps) => {
           }
         }}
         options={{
-          maxFiles: 1,
+          maxFiles: 10,
+          maxFileSize: 25 * 1024 * 1024,
+          multiple: true,
         }}
         uploadPreset="zvv5vzb4"
       >
