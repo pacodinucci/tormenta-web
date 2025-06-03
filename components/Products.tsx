@@ -9,6 +9,8 @@ import OutlineShadowButton from "./OutlineShadowButton";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProductStore } from "@/store/product";
+import Image from "next/image";
+import { formatNumber } from "@/lib/formatNumber";
 
 const baseProduct = {
   id: "rosa-bugambilia",
@@ -50,16 +52,21 @@ const Products = () => {
         alt: `Imagen de ${img.color}`,
       }));
 
-    console.log("IMÁGENES FILTRADAS:", result);
-
     setMatchingImages(result);
   }, [products, color]);
 
-  useEffect(() => {
-    console.log(matchingImages);
-  }, [matchingImages]);
-
-  if (loading) return <p>Cargando productos...</p>;
+  if (loading)
+    return (
+      <div className="w-screen h-screen flex flex-col justify-center items-center pb-24">
+        <Image
+          src={"/logo.png"}
+          alt="logo tormenta rainwear"
+          width={200}
+          height={0}
+        />
+        <p>Cargando productos...</p>
+      </div>
+    );
   if (error) return <p>{error}</p>;
 
   const handleAddProduct = () => {
@@ -114,6 +121,28 @@ const Products = () => {
       </div>
       <ImageGallery images={matchingImages} />
       <div className="flex flex-col min-w-[75%] md:min-w-[600px] justify-center md:items-center gap-y-6 w-full pl-6 pr-2 pt-6">
+        <div>
+          <div className="">
+            <p
+              className="text-3xl"
+              style={{ fontFamily: "var(--font-impact)" }}
+            >
+              {products[0].name}
+            </p>
+            <p
+              className="text-lg"
+              style={{ fontFamily: "var(--font-franklin)" }}
+            >
+              {products[0].description}
+            </p>
+          </div>
+          <p
+            className="text-3xl mt-2"
+            style={{ fontFamily: "var(--font-impact)" }}
+          >
+            {formatNumber(products[0].price)}
+          </p>
+        </div>
         <div className="flex gap-x-4">
           <OutlineShadowButton
             onClick={() => setSelectedSize("small")}
