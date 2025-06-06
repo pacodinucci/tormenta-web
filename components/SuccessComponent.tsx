@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import OutlineShadowButton from "./OutlineShadowButton";
 import { ShoppingBasket } from "lucide-react";
