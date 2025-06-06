@@ -69,6 +69,8 @@ const Products = () => {
     );
   if (error) return <p>{error}</p>;
 
+  if (!products || products.length === 0) return null;
+
   const handleAddProduct = () => {
     console.log("agregar producto!");
     if (!selectedSize) {
