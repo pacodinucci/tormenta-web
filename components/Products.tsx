@@ -12,14 +12,6 @@ import { useProductStore } from "@/store/product";
 import Image from "next/image";
 import { formatNumber } from "@/lib/formatNumber";
 
-const baseProduct = {
-  id: "rosa-bugambilia",
-  name: "Raincoat",
-  color: "Bugambilia",
-  image: "/image2.jpg",
-  price: 8000,
-};
-
 const Products = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -68,24 +60,24 @@ const Products = () => {
       </div>
     );
   if (error) return <p>{error}</p>;
-
   if (!products || products.length === 0) return null;
 
+  const product = products[0]; // Usamos el primer producto cargado (ajustar si es necesario)
+
   const handleAddProduct = () => {
-    console.log("agregar producto!");
     if (!selectedSize) {
       toast.error("Por favor selecciona una talla.");
       return;
     }
 
     addItem({
-      id: `${baseProduct.id}-${selectedSize}`,
-      name: baseProduct.name,
-      color: baseProduct.color,
+      id: product.id,
+      name: product.name,
+      color: color || "",
       size: selectedSize,
       quantity: 1,
-      price: baseProduct.price,
-      image: baseProduct.image,
+      price: product.price,
+      image: matchingImages[0]?.src || "/fallback.jpg",
     });
 
     setSelectedSize(null);
@@ -121,50 +113,37 @@ const Products = () => {
           </h3>
         )}
       </div>
+
       <ImageGallery images={matchingImages} />
+
       <div className="flex flex-col min-w-[75%] md:min-w-[600px] justify-center md:items-center gap-y-6 w-full pl-6 pr-2 pt-6">
         <div>
-          <div className="">
-            <p
-              className="text-3xl"
-              style={{ fontFamily: "var(--font-impact)" }}
-            >
-              {products[0].name}
-            </p>
-            <p
-              className="text-lg"
-              style={{ fontFamily: "var(--font-franklin)" }}
-            >
-              {products[0].description}
-            </p>
-          </div>
+          <p className="text-3xl" style={{ fontFamily: "var(--font-impact)" }}>
+            {product.name}
+          </p>
+          <p className="text-lg" style={{ fontFamily: "var(--font-franklin)" }}>
+            {product.description}
+          </p>
           <p
             className="text-3xl mt-2"
             style={{ fontFamily: "var(--font-impact)" }}
           >
-            {formatNumber(products[0].price)}
+            {formatNumber(product.price)}
           </p>
         </div>
+
         <div className="flex gap-x-4">
-          <OutlineShadowButton
-            onClick={() => setSelectedSize("small")}
-            className={selectedSize === "small" ? "bg-slate-600" : ""}
-          >
-            s
-          </OutlineShadowButton>
-          <OutlineShadowButton
-            onClick={() => setSelectedSize("medium")}
-            className={selectedSize === "medium" ? "bg-slate-600" : ""}
-          >
-            m
-          </OutlineShadowButton>
-          <OutlineShadowButton
-            onClick={() => setSelectedSize("large")}
-            className={selectedSize === "large" ? "bg-slate-600" : ""}
-          >
-            l
-          </OutlineShadowButton>
+          {["small", "medium", "large"].map((size) => (
+            <OutlineShadowButton
+              key={size}
+              onClick={() => setSelectedSize(size)}
+              className={selectedSize === size ? "bg-slate-600" : ""}
+            >
+              {size[0]}
+            </OutlineShadowButton>
+          ))}
         </div>
+
         <div className="flex items-center justify-between">
           <OutlineShadowButton onClick={handleAddProduct}>
             Agregar al carrito

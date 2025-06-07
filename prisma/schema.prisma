@@ -14,15 +14,17 @@ enum UserRole {
 }
 
 model CartItem {
-    id         String    @id
-    orderId    String
-    quantity   Int
-    price      Int
-    productsId String?
-    stockId    String
-    Order      Order     @relation(fields: [orderId], references: [id])
-    Products   Products? @relation(fields: [productsId], references: [id])
-    Stock      Stock     @relation(fields: [stockId], references: [id])
+    id        String    @id @default(uuid())
+    orderId   String
+    quantity  Int
+    price     Int
+    color     String
+    size      String
+    productId String?
+    stockId   String?
+    Order     Order     @relation(fields: [orderId], references: [id])
+    Products  Products? @relation(fields: [productId], references: [id])
+    Stock     Stock?    @relation(fields: [stockId], references: [id])
 }
 
 model Customer {
@@ -33,7 +35,7 @@ model Customer {
     address   String
     zipCode   String
     createdAt DateTime @default(now())
-    updatedAt DateTime
+    updatedAt DateTime @updatedAt
     Order     Order[]
 }
 
@@ -44,7 +46,7 @@ model Order {
     isDelivered Boolean    @default(false)
     total       Int
     createdAt   DateTime   @default(now())
-    updatedAt   DateTime
+    updatedAt   DateTime   @updatedAt
     CartItem    CartItem[]
     Customer    Customer   @relation(fields: [customerId], references: [id])
 }

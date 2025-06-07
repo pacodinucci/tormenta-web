@@ -8,6 +8,8 @@ import {
   Metadata,
 } from "@/actions/createCheckoutSession";
 import { useCart } from "@/store/cart";
+import { createCustomer } from "@/actions/createCustomer";
+import { createOrder } from "@/actions/createOrder";
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -32,10 +34,30 @@ const FormComponent = () => {
     setIsLoading(true);
 
     try {
+      const customerId = crypto.randomUUID();
+      const orderNumber = crypto.randomUUID();
+
+      const customer = await createCustomer({ ...formData, id: customerId });
+
+      console.log(customer);
+
+      const total = cart.reduce(
+        (acc, item) => acc + item.quantity * item.price,
+        0
+      );
+
+      await createOrder({
+        id: orderNumber,
+        customerId,
+        total,
+        cart,
+      });
+
       const metadata: Metadata = {
-        orderNumber: crypto.randomUUID(),
-        customerName: formData.fullName ?? "Unknown",
-        customerEmail: formData.email ?? "Unknown",
+        orderNumber,
+        customerName: formData.fullName,
+        customerEmail: formData.email,
+        customerId,
       };
 
       const checkoutUrl = await createCheckoutSession(cart, metadata);
