@@ -58,6 +58,7 @@ export async function POST(req: Request) {
           where: { id: orderId },
           include: { CartItem: true },
         });
+        console.log("order with items --> ", orderWithItems);
 
         if (!orderWithItems || !orderWithItems.CartItem.length) {
           throw new Error("No se encontraron ítems en la orden.");

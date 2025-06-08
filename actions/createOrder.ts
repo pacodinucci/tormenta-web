@@ -14,6 +14,27 @@ export async function createOrder(data: OrderData) {
   console.log("CUSTOMER ID --> ", data.customerId);
 
   const order = await db.order.create({
+    // data: {
+    //   id: data.id,
+    //   customerId: data.customerId,
+    //   total: data.total,
+    //   isPaid: false,
+    //   isDelivered: false,
+    //   CartItem: {
+    //     create: data.cart.map((item) => ({
+    //       Products: {
+    //         connect: {
+    //           id: item.id,
+    //         },
+    //       },
+    //       color: item.color,
+    //       size: item.size,
+    //       quantity: item.quantity,
+    //       price: item.price,
+    //       stockId: item.stockId,
+    //     })),
+    //   },
+    // },
     data: {
       id: data.id,
       customerId: data.customerId,
@@ -21,12 +42,10 @@ export async function createOrder(data: OrderData) {
       isPaid: false,
       isDelivered: false,
       CartItem: {
+        // ✅ corregido (probablemente esté mal como "CartItem")
         create: data.cart.map((item) => ({
-          Products: {
-            connect: {
-              id: item.id,
-            },
-          },
+          stockId: item.stockId, // ✅ este sí se puede
+          productId: item.id, // suponiendo que `item.id` es el ID del producto
           color: item.color,
           size: item.size,
           quantity: item.quantity,
