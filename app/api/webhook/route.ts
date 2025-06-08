@@ -7,7 +7,6 @@ import Stripe from "stripe";
 export async function POST(req: Request) {
   const body = await req.text();
   const headersList = await headers();
-
   const sig = headersList.get("stripe-signature")!;
 
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -15,7 +14,7 @@ export async function POST(req: Request) {
   if (!webhookSecret) {
     console.log("Stripe webhook secret is not set.");
     return NextResponse.json(
-      { error: "Stripe webhook secret is note set." },
+      { error: "Stripe webhook secret is not set." },
       { status: 400 }
     );
   }
@@ -31,11 +30,8 @@ export async function POST(req: Request) {
     );
   }
 
-  //   console.log(event);
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
-
-    console.log(session);
 
     const orderId = session.metadata?.orderNumber;
     const customerId = session.metadata?.customerId;
@@ -50,18 +46,45 @@ export async function POST(req: Request) {
     }
 
     try {
-      await db.order.update({
-        where: { id: orderId },
-        data: {
-          isPaid: true,
-        },
+      // 🔒 Transacción para actualizar orden y stocks
+      await db.$transaction(async (tx) => {
+        // Marcar orden como pagada
+        await tx.order.update({
+          where: { id: orderId },
+          data: { isPaid: true },
+        });
+
+        const orderWithItems = await tx.order.findUnique({
+          where: { id: orderId },
+          include: { CartItem: true },
+        });
+
+        if (!orderWithItems || !orderWithItems.CartItem.length) {
+          throw new Error("No se encontraron ítems en la orden.");
+        }
+
+        // Decrementar stock
+        for (const item of orderWithItems.CartItem) {
+          if (!item.stockId) continue;
+
+          await tx.stock.update({
+            where: { id: item.stockId },
+            data: {
+              quantity: {
+                decrement: item.quantity,
+              },
+            },
+          });
+
+          console.log(`📦 Stock actualizado para stockId: ${item.stockId}`);
+        }
       });
 
-      console.log("✅ Orden actualizada como pagada:", orderId);
+      console.log("✅ Orden procesada con éxito:", orderId);
     } catch (err) {
-      console.error("❌ Error actualizando la orden:", err);
+      console.error("❌ Error procesando la orden:", err);
       return NextResponse.json(
-        { error: "Error actualizando la orden." },
+        { error: "Error procesando la orden." },
         { status: 500 }
       );
     }

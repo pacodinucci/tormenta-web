@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useProductStore } from "@/store/product";
 import Image from "next/image";
 import { formatNumber } from "@/lib/formatNumber";
+import { useStockStore } from "@/store/stock";
 
 const Products = () => {
   const router = useRouter();
@@ -21,6 +22,7 @@ const Products = () => {
   const items = useCart((state) => state.items);
   const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
   const { fetchProducts, products, loading, error } = useProductStore();
+  const { fetchStocksByColor, stocks } = useStockStore();
   const [matchingImages, setMatchingImages] = useState<
     { src: string; alt: string }[]
   >([]);
@@ -45,7 +47,14 @@ const Products = () => {
       }));
 
     setMatchingImages(result);
+
+    console.log(product.id, color);
+    fetchStocksByColor(product.id, color);
   }, [products, color]);
+
+  useEffect(() => {
+    console.log("STOCKS CARGADOS:", stocks);
+  }, [stocks]);
 
   if (loading)
     return (
@@ -64,14 +73,29 @@ const Products = () => {
 
   const product = products[0]; // Usamos el primer producto cargado (ajustar si es necesario)
 
+  const getMatchedStock = (size: string) => {
+    return stocks.find(
+      (s) => s.size.toLowerCase() === size.toLowerCase() && s.quantity > 0
+    );
+  };
+
   const handleAddProduct = () => {
     if (!selectedSize) {
       toast.error("Por favor selecciona una talla.");
       return;
     }
 
+    const matchedStock = getMatchedStock(selectedSize);
+    if (!matchedStock) {
+      toast.error("No hay stock disponible para esta combinación.");
+      return;
+    }
+
+    console.log("MATCHED STOCK --> ", matchedStock);
+
     addItem({
       id: product.id,
+      stockId: matchedStock.id,
       name: product.name,
       color: color || "",
       size: selectedSize,
@@ -94,6 +118,12 @@ const Products = () => {
   } else if (tituloColor === "rosa") {
     subtitulo = "rosa";
   }
+
+  const isSizeAvailable = (size: string): boolean => {
+    return stocks.some(
+      (s) => s.size.toLowerCase() === size.toLowerCase() && s.quantity > 0
+    );
+  };
 
   return (
     <div className="flex flex-col justify-center items-center gap-y-4 pb-24">
@@ -132,7 +162,7 @@ const Products = () => {
           </p>
         </div>
 
-        <div className="flex gap-x-4">
+        {/* <div className="flex gap-x-4">
           {["small", "medium", "large"].map((size) => (
             <OutlineShadowButton
               key={size}
@@ -142,6 +172,25 @@ const Products = () => {
               {size[0]}
             </OutlineShadowButton>
           ))}
+        </div> */}
+
+        <div className="flex gap-x-4">
+          {["S", "M", "L"].map((size) => {
+            const disabled = !isSizeAvailable(size);
+            return (
+              <OutlineShadowButton
+                key={size}
+                onClick={() => !disabled && setSelectedSize(size)}
+                className={
+                  (selectedSize === size ? "bg-slate-600 " : "") +
+                  (disabled ? "opacity-50 cursor-not-allowed" : "")
+                }
+                disabled={disabled}
+              >
+                {size[0]}
+              </OutlineShadowButton>
+            );
+          })}
         </div>
 
         <div className="flex items-center justify-between">

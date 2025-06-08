@@ -8,6 +8,7 @@ export type Metadata = {
   customerName: string;
   customerEmail: string;
   customerId: string;
+  stockIds: string;
 };
 
 export async function createCheckoutSession(

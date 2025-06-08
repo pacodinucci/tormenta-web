@@ -53,11 +53,14 @@ const FormComponent = () => {
         cart,
       });
 
+      const stockIds = cart.map((item) => item.stockId).join(",");
+
       const metadata: Metadata = {
         orderNumber,
         customerName: formData.fullName,
         customerEmail: formData.email,
         customerId,
+        stockIds,
       };
 
       const checkoutUrl = await createCheckoutSession(cart, metadata);
