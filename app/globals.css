@@ -159,3 +159,29 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.magnifier-img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  cursor: zoom-in;
+}
+
+.magnifier-img:hover::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  background-repeat: no-repeat;
+  background-size: 200%;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+}
+
+.magnifier-img:hover {
+  position: relative;
+}

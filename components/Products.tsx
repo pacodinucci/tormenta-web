@@ -126,8 +126,8 @@ const Products = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-y-4 pb-24">
-      <div className="min-w-[75%] md:min-w-[600px] flex items-center gap-2">
+    <div className="flex flex-col justify-center md:items-center gap-y-4 pb-24">
+      <div className="min-w-[75%] md:min-w-[600px] flex items-center gap-2 pl-4">
         <h1
           style={{ fontFamily: "var(--font-baron)" }}
           className="text-7xl uppercase"
