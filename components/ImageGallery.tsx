@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 interface ImageGalleryProps {
@@ -10,8 +10,19 @@ interface ImageGalleryProps {
 export default function ImageGallery({ images }: ImageGalleryProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [showLens, setShowLens] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
   const lensRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 768); // md: tailwind = 768px
+    };
+
+    handleResize(); // Inicial
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const updateLensPosition = (x: number, y: number) => {
     const container = containerRef.current;
@@ -31,12 +42,8 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isLargeScreen) return;
     updateLensPosition(e.clientX, e.clientY);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const touch = e.touches[0];
-    updateLensPosition(touch.clientX, touch.clientY);
   };
 
   return (
@@ -46,11 +53,8 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
         className="relative w-[70%] md:w-[400px] h-[300px] md:h-[400px] shrink-0 overflow-hidden"
         ref={containerRef}
         onMouseMove={handleMouseMove}
-        onMouseEnter={() => setShowLens(true)}
-        onMouseLeave={() => setShowLens(false)}
-        onTouchStart={() => setShowLens(true)}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={() => setShowLens(false)}
+        onMouseEnter={() => isLargeScreen && setShowLens(true)}
+        onMouseLeave={() => isLargeScreen && setShowLens(false)}
       >
         <Image
           src={images[selectedIndex]?.src}
@@ -60,7 +64,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
           className="pointer-events-none"
         />
 
-        {showLens && (
+        {isLargeScreen && showLens && (
           <div
             ref={lensRef}
             className="absolute w-32 h-32 rounded-full border-2 border-black pointer-events-none"
