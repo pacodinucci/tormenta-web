@@ -144,80 +144,76 @@ const Products = () => {
         )}
       </div>
 
-      <ImageGallery images={matchingImages} />
+      <div>
+        <ImageGallery images={matchingImages} />
 
-      <div className="flex flex-col min-w-[75%] md:min-w-[600px] justify-center md:items-center gap-y-6 w-full pl-6 pr-2 pt-6">
-        <div>
-          <p className="text-3xl" style={{ fontFamily: "var(--font-impact)" }}>
-            {product.name}
-          </p>
-          <p className="text-lg" style={{ fontFamily: "var(--font-franklin)" }}>
-            {product.description}
-          </p>
-          <p
-            className="text-3xl mt-2"
-            style={{ fontFamily: "var(--font-impact)" }}
-          >
-            {formatNumber(product.price)}
-          </p>
-        </div>
-
-        {/* <div className="flex gap-x-4">
-          {["small", "medium", "large"].map((size) => (
-            <OutlineShadowButton
-              key={size}
-              onClick={() => setSelectedSize(size)}
-              className={selectedSize === size ? "bg-slate-600" : ""}
+        <div className="flex flex-col min-w-[75%] md:min-w-[600px] justify-center gap-y-6 w-full pl-6 pr-2 pt-6">
+          <div>
+            <p
+              className="text-3xl"
+              style={{ fontFamily: "var(--font-impact)" }}
             >
-              {size[0]}
-            </OutlineShadowButton>
-          ))}
-        </div> */}
+              {product.name}
+            </p>
+            <p
+              className="text-lg"
+              style={{ fontFamily: "var(--font-franklin)" }}
+            >
+              {product.description}
+            </p>
+            <p
+              className="text-3xl mt-2"
+              style={{ fontFamily: "var(--font-impact)" }}
+            >
+              {formatNumber(product.price)}
+            </p>
+          </div>
 
-        <div className="flex gap-x-4">
-          {["S", "M", "L"].map((size) => {
-            const disabled = !isSizeAvailable(size);
-            return (
-              <OutlineShadowButton
-                key={size}
-                onClick={() => !disabled && setSelectedSize(size)}
-                className={
-                  (selectedSize === size ? "bg-slate-600 " : "") +
-                  (disabled ? "opacity-50 cursor-not-allowed" : "")
-                }
-                disabled={disabled}
-              >
-                {size[0]}
-              </OutlineShadowButton>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center justify-between">
-          <OutlineShadowButton onClick={handleAddProduct}>
-            Agregar al carrito
-          </OutlineShadowButton>
-
-          <AnimatePresence>
-            {totalQuantity > 0 && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, x: 10 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                exit={{ opacity: 0, scale: 0.9, x: 10 }}
-                transition={{ duration: 0.3 }}
-              >
+          <div className="flex gap-x-4">
+            {["S", "M", "L"].map((size) => {
+              const disabled = !isSizeAvailable(size);
+              return (
                 <OutlineShadowButton
-                  onClick={() => router.push("/cart")}
-                  className="bg-emerald-700"
+                  key={size}
+                  onClick={() => !disabled && setSelectedSize(size)}
+                  className={
+                    (selectedSize === size ? "bg-slate-600 " : "") +
+                    (disabled ? "opacity-50 cursor-not-allowed" : "")
+                  }
+                  disabled={disabled}
                 >
-                  <div className="flex items-center gap-2">
-                    <ShoppingBasket />
-                    <span>{totalQuantity}</span>
-                  </div>
+                  {size[0]}
                 </OutlineShadowButton>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center justify-between">
+            <OutlineShadowButton onClick={handleAddProduct}>
+              Agregar al carrito
+            </OutlineShadowButton>
+
+            <AnimatePresence>
+              {totalQuantity > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, x: 10 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, x: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <OutlineShadowButton
+                    onClick={() => router.push("/cart")}
+                    className="bg-emerald-700"
+                  >
+                    <div className="flex items-center gap-2">
+                      <ShoppingBasket />
+                      <span>{totalQuantity}</span>
+                    </div>
+                  </OutlineShadowButton>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@ const CartComponent = () => {
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <div>
+    <div className="w-full md:w-[60%]">
       <h1
         className="text-5xl mb-4 ml-2"
         style={{ fontFamily: "var(--font-gobold)" }}
@@ -36,9 +36,6 @@ const CartComponent = () => {
           {cart.map((item) => {
             const price = Number(item.price);
             const quantity = item.quantity;
-
-            // const discountedPrice =
-            //   discount > 0 ? price * (1 - discount / 100) : price;
 
             return (
               <div
@@ -70,7 +67,14 @@ const CartComponent = () => {
                   <div className="flex items-center justify-between pr-4">
                     <div className="flex items-center border border-gray-300 px-2 py-1">
                       <button
-                        onClick={() => updateCartItem(item.id, quantity - 1)}
+                        onClick={() => {
+                          if (quantity > 1)
+                            updateCartItem(item.id, quantity - 1);
+                        }}
+                        disabled={quantity <= 1}
+                        className={
+                          quantity <= 1 ? "opacity-50 cursor-not-allowed" : ""
+                        }
                       >
                         <Minus size={16} />
                       </button>
@@ -81,7 +85,7 @@ const CartComponent = () => {
                         onChange={(e) =>
                           updateCartItem(item.id, Number(e.target.value))
                         }
-                        className="w-10 text-center bg-transparent focus:outline-none"
+                        className="w-10 text-center bg-transparent focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
                       />
                       <button
                         onClick={() => updateCartItem(item.id, quantity + 1)}
@@ -91,20 +95,9 @@ const CartComponent = () => {
                     </div>
 
                     <div className="text-right">
-                      {/* {discount > 0 && (
-                      <p className="line-through text-sm text-gray-500">
-                        {formatNumber(price * boxSize * quantity)}
-                      </p>
-                    )} */}
                       <p className="text-2xl font-semibold">
                         {formatNumber(price * quantity)}
                       </p>
-                      {/* {discount > 0 && (
-                      <p className="text-green-600 text-sm">
-                        Ahorraste{" "}
-                        {formatNumber((price - discountedPrice) * quantity)}
-                      </p>
-                    )} */}
                     </div>
                   </div>
                 </div>
@@ -138,7 +131,7 @@ const CartComponent = () => {
           </div>
           <div className="mt-8">
             <OutlineShadowButton
-              className="min-w-[90vw]"
+              className="min-w-[90vw] md:min-w-[58vw]"
               onClick={() => router.push("/form")}
             >
               Continuar
