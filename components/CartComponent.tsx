@@ -21,7 +21,7 @@ const CartComponent = () => {
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <div className="w-full md:w-[60%]">
+    <div className="w-full md:w-[60%] bg-white min-h-screen px-12">
       <h1
         className="text-5xl mb-4 ml-2"
         style={{ fontFamily: "var(--font-gobold)" }}
@@ -129,9 +129,9 @@ const CartComponent = () => {
               Aplicar cupón
             </OutlineShadowButton>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 justify-self-center">
             <OutlineShadowButton
-              className="min-w-[90vw] md:min-w-[58vw]"
+              className="min-w-[90vw] md:min-w-[30vw]"
               onClick={() => router.push("/form")}
             >
               Continuar
