@@ -7,7 +7,7 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import { CiMenuBurger } from "react-icons/ci";
 
-export const LandingComponent = () => {
+export const MobileLandingComponent = () => {
   const router = useRouter();
   const [loaded, setLoaded] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,8 +18,22 @@ export const LandingComponent = () => {
         loaded ? "opacity-100" : "opacity-0"
       } relative w-full h-svh overflow-x-hidden pb-12 overflow-y-hidden`}
     >
+      {/* Landing Image */}
+      <div className="flex justify-center w-full h-svh relative">
+        <Image
+          src="/landingImage2.png"
+          alt="Tormenta Rainwear"
+          fill
+          priority
+          onLoad={() => setLoaded(true)}
+          className="object-contain object-top pt-20"
+        />
+      </div>
+      <div className="absolute bottom-30 left-0 w-full z-10">
+        <QuieroBand />
+      </div>
       {/* MENÚ desplegable */}
-      <div className="absolute top-15 left-20 z-20">
+      <div className="absolute top-5 left-5 z-20">
         <div className="relative">
           <CiMenuBurger
             size={36}
@@ -58,37 +72,16 @@ export const LandingComponent = () => {
           </AnimatePresence>
         </div>
       </div>
-
-      {/* Íconos sociales */}
-      <div className="p-4 flex flex-col gap-y-8 absolute top-40 right-10 z-10">
-        <FaFacebook size={36} className="cursor-pointer" />
-        <FaInstagram size={36} className="cursor-pointer" />
-        <TfiEmail size={36} className="cursor-pointer" />
+      <div className="absolute bottom-10 left-23 flex items-center justify-between gap-x-8 p-4">
+        <FaFacebook size={36} />
+        <FaInstagram size={36} />
+        <TfiEmail size={36} />
       </div>
-
-      {/* Banda inferior */}
-      <div className="absolute bottom-0 left-0 w-full z-20">
-        <QuieroBand />
-      </div>
-
-      {/* Botón circular central */}
       <div className="absolute z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <button
-          className="w-40 h-40 rounded-full bg-yellow-300 border-4 border-black shadow-md hover:scale-105 transition-transform duration-200"
+          className="w-32 h-32 rounded-full bg-yellow-300 border-4 border-black shadow-md hover:scale-105 transition-transform duration-200"
           aria-label="Botón central"
           onClick={() => router.push("/colors")}
-        />
-      </div>
-
-      {/* Imagen central */}
-      <div className="flex justify-center items-center w-full h-svh relative">
-        <Image
-          src="/landingImage2.png"
-          alt="Tormenta Rainwear"
-          fill
-          priority
-          onLoad={() => setLoaded(true)}
-          className="object-contain"
         />
       </div>
     </div>
