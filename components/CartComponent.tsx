@@ -30,7 +30,14 @@ const CartComponent = () => {
       </h1>
 
       {cart.length === 0 ? (
-        <p>Tu carrito está vacío.</p>
+        <div className="flex flex-col gap-y-4 items-center justify-center mt-24">
+          <p style={{ fontFamily: "var(--font-mighty)" }}>
+            Tu carrito está vacío.
+          </p>
+          <OutlineShadowButton onClick={() => router.push("/colors")}>
+            Volver a la tienda
+          </OutlineShadowButton>
+        </div>
       ) : (
         <>
           {cart.map((item) => {

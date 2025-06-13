@@ -202,7 +202,7 @@ const ProductsCopy = () => {
                   transition={{ duration: 0.3 }}
                 >
                   <OutlineShadowButton
-                    onClick={() => router.push("/tormenta/cart")}
+                    onClick={() => router.push("/cart")}
                     className="bg-emerald-700"
                   >
                     <div className="flex items-center gap-2">
