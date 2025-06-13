@@ -23,7 +23,7 @@ const CartComponent = () => {
   return (
     <div className="w-[90%] md:w-[60%] bg-white min-h-screen md:px-12">
       <h1
-        className="text-5xl mb-4 ml-2"
+        className="text-5xl mb-4 ml-2 whitespace-nowrap"
         style={{ fontFamily: "var(--font-gobold)" }}
       >
         Revisa tu compra
@@ -129,16 +129,16 @@ const CartComponent = () => {
 
           <div className="flex gap-x-2 mt-6">
             <input
-              className="max-w-60 rounded-none outline-1"
+              className="max-w-35 rounded-none outline-1"
               placeholder="Código del cupón"
             />
-            <OutlineShadowButton className="rounded-none bg-darkCustom hover:bg-darkCustom/90">
+            <OutlineShadowButton className="rounded-none bg-darkCustom whitespace-nowrap hover:bg-darkCustom/90">
               Aplicar cupón
             </OutlineShadowButton>
           </div>
           <div className="mt-8 justify-self-center">
             <OutlineShadowButton
-              className="min-w-[90vw] md:min-w-[30vw]"
+              className="min-w-[85vw] md:min-w-[30vw]"
               onClick={() => router.push("/form")}
             >
               Continuar
