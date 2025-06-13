@@ -188,7 +188,7 @@ const ProductsCopy = () => {
             })}
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-x-4">
             <OutlineShadowButton onClick={handleAddProduct}>
               Agregar al carrito
             </OutlineShadowButton>
