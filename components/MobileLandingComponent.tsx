@@ -57,13 +57,13 @@ export const MobileLandingComponent = () => {
                   transition={{ delay: 0.1 }}
                   style={{ fontFamily: "var(--font-mighty)" }}
                 >
-                  <a href="#about" className="hover:underline">
+                  <a href="/about" className="hover:underline">
                     About Us
                   </a>
-                  <a href="#pocket" className="hover:underline">
+                  <a href="/pocket" className="hover:underline">
                     Pocket
                   </a>
-                  <a href="#tallas" className="hover:underline">
+                  <a href="/tallas" className="hover:underline">
                     Tabla de tallas
                   </a>
                 </motion.div>

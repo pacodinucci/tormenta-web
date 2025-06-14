@@ -43,13 +43,13 @@ export const LandingComponent = () => {
                   transition={{ delay: 0.1 }}
                   style={{ fontFamily: "var(--font-mighty)" }}
                 >
-                  <a href="#about" className="hover:underline">
+                  <a href="/about" className="hover:underline">
                     About Us
                   </a>
-                  <a href="#pocket" className="hover:underline">
+                  <a href="/pocket" className="hover:underline">
                     Pocket
                   </a>
-                  <a href="#tallas" className="hover:underline">
+                  <a href="/tallas" className="hover:underline">
                     Tabla de tallas
                   </a>
                 </motion.div>
@@ -60,7 +60,7 @@ export const LandingComponent = () => {
       </div>
 
       {/* Íconos sociales */}
-      <div className="p-4 flex flex-col gap-y-8 absolute top-40 right-10 z-10">
+      <div className="p-4 flex flex-col gap-y-8 absolute top-40 right-10 z-10 bg-white">
         <FaFacebook size={36} className="cursor-pointer" />
         <FaInstagram size={36} className="cursor-pointer" />
         <TfiEmail size={36} className="cursor-pointer" />

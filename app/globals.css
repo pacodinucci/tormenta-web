@@ -21,6 +21,7 @@
   --font-mariana: "Mariana", sans-serif;
   --font-mighty: "Mighty Sans", sans-serif;
   --font-franklin: "Franklin Gothic", sans-serif;
+  --font-gill: "Gill Sans", sans-serif;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -106,6 +107,13 @@ body {
   font-family: "Gobold Blocky";
   src: url("/fonts/Gobold Blocky Italic WebFont.woff") format("woff");
   font-style: italic;
+}
+
+/* GILL SANS */
+@font-face {
+  font-family: "Gill Sans";
+  src: url("/fonts/Gill Sans Medium.otf") format("opentype");
+  font-style: normal;
 }
 
 /* OTRAS FUENTES */

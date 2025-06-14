@@ -12,6 +12,7 @@ import { useProductStore } from "@/store/product";
 import Image from "next/image";
 import { formatNumber } from "@/lib/formatNumber";
 import { useStockStore } from "@/store/stock";
+import ColorCircle from "./ui/ColorCircle";
 
 const ProductsCopy = () => {
   const router = useRouter();
@@ -90,8 +91,6 @@ const ProductsCopy = () => {
       toast.error("No hay stock disponible para esta combinación.");
       return;
     }
-
-    console.log("MATCHED STOCK --> ", matchedStock);
 
     addItem({
       id: product.id,
@@ -188,7 +187,7 @@ const ProductsCopy = () => {
             })}
           </div>
 
-          <div className="flex items-center gap-x-4">
+          <div className="flex md:flex-col gap-y-4 items-center gap-x-4">
             <OutlineShadowButton
               onClick={handleAddProduct}
               className="whitespace-nowrap"
@@ -206,17 +205,46 @@ const ProductsCopy = () => {
                 >
                   <OutlineShadowButton
                     onClick={() => router.push("/cart")}
-                    className="bg-emerald-700"
+                    className="bg-emerald-700 md:w-60"
                   >
                     <div className="flex items-center gap-2">
                       <ShoppingBasket />
                       <span>{totalQuantity}</span>
+                      <p className="hidden md:block">Ver carrito</p>
                     </div>
                   </OutlineShadowButton>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
+        </div>
+      </div>
+      <div className="w-full px-4 flex flex-col md:flex-row md:items-center justify-between">
+        <div
+          className="flex flex-col gap-x-2"
+          style={{ fontFamily: "var(--font-mighty)" }}
+        >
+          <p className="hover:underline cursor-pointer">
+            + Info sobre el producto
+          </p>
+          <p className="hover:underline cursor-pointer">Tabla de tallas</p>
+        </div>
+        <div className="relative z-10 flex md:justify-center gap-x-4 mt-6 md:mt-0">
+          <ColorCircle
+            color="#4b4d3d"
+            position="right"
+            className="cursor-pointer scale-75"
+          />
+          <ColorCircle
+            color="#1e1e1e"
+            position="center"
+            className="cursor-pointer scale-75"
+          />
+          <ColorCircle
+            color="#d100c9"
+            position="left"
+            className="cursor-pointer scale-75"
+          />
         </div>
       </div>
     </div>

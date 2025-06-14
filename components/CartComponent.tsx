@@ -31,7 +31,10 @@ const CartComponent = () => {
 
       {cart.length === 0 ? (
         <div className="flex flex-col gap-y-4 items-center justify-center mt-24">
-          <p style={{ fontFamily: "var(--font-mighty)" }}>
+          <p
+            style={{ fontFamily: "var(--font-mighty)" }}
+            className="tracking-wider text-xl"
+          >
             Tu carrito está vacío.
           </p>
           <OutlineShadowButton onClick={() => router.push("/colors")}>
