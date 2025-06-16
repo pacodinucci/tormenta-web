@@ -39,12 +39,11 @@ export async function createCheckoutSession(
       metadata,
       mode: "payment",
       allow_promotion_codes: true,
-      success_url: `https://www.tormenta.mx/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`,
-      // success_url: `${
-      //   `https://${process.env.VERCEL_URL}` || process.env.NEXT_PUBLIC_BASE_URL
-      // }/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${
-      //   metadata.orderNumber
-      // }`,
+      success_url: `${
+        `https://${process.env.VERCEL_URL}` || process.env.NEXT_PUBLIC_BASE_URL
+      }/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${
+        metadata.orderNumber
+      }`,
       cancel_url: `${
         `https://${process.env.VERCEL_URL}` || process.env.NEXT_PUBLIC_BASE_URL
       }/cart`,
