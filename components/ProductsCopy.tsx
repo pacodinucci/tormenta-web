@@ -176,7 +176,7 @@ const ProductsCopy = () => {
                   key={size}
                   onClick={() => !disabled && setSelectedSize(size)}
                   className={
-                    (selectedSize === size ? "bg-slate-600 " : "") +
+                    (selectedSize === size ? "bg-green-700 " : "") +
                     (disabled ? "opacity-50 cursor-not-allowed" : "")
                   }
                   disabled={disabled}
@@ -224,27 +224,41 @@ const ProductsCopy = () => {
           className="flex flex-col gap-x-2"
           style={{ fontFamily: "var(--font-mighty)" }}
         >
-          <p className="hover:underline cursor-pointer">
+          <p
+            className="hover:underline cursor-pointer"
+            onClick={() => router.push("/pocket")}
+          >
             + Info sobre el producto
           </p>
-          <p className="hover:underline cursor-pointer">Tabla de tallas</p>
+          <p
+            className="hover:underline cursor-pointer"
+            onClick={() => router.push("/tallas")}
+          >
+            Tabla de tallas
+          </p>
         </div>
         <div className="relative z-10 flex md:justify-center gap-x-4 mt-6 md:mt-0">
-          <ColorCircle
-            color="#4b4d3d"
-            position="right"
-            className="cursor-pointer scale-75"
-          />
-          <ColorCircle
-            color="#1e1e1e"
-            position="center"
-            className="cursor-pointer scale-75"
-          />
-          <ColorCircle
-            color="#d100c9"
-            position="left"
-            className="cursor-pointer scale-75"
-          />
+          <div onClick={() => router.push("/tienda?color=Verde")}>
+            <ColorCircle
+              color="#4b4d3d"
+              position="right"
+              className="cursor-pointer scale-75"
+            />
+          </div>
+          <div onClick={() => router.push("/tienda?color=Negro")}>
+            <ColorCircle
+              color="#1e1e1e"
+              position="center"
+              className="cursor-pointer scale-75"
+            />
+          </div>
+          <div onClick={() => router.push("/tienda?color=Rosa")}>
+            <ColorCircle
+              color="#d100c9"
+              position="left"
+              className="cursor-pointer scale-75"
+            />
+          </div>
         </div>
       </div>
     </div>
