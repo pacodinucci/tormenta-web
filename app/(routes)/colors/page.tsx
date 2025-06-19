@@ -26,7 +26,7 @@ const ColorsPage = () => {
         className="text-right mr-6 uppercase"
         style={{ fontFamily: "var(--font-gobold)" }}
       >
-        <h1 className="text-4xl">$1300 mxn</h1>
+        <h1 className="text-4xl">$1500 mxn</h1>
         <h3 className="text-2xl">Envío incluído a todo México</h3>
       </div>
       <div>
