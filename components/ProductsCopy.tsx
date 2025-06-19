@@ -35,12 +35,15 @@ const ProductsCopy = () => {
   useEffect(() => {
     if (!color || products.length === 0) return;
 
+    console.log("Productos --> ", products);
+
     const result = products
       .flatMap((product) => product.images)
       .filter(
         (img) =>
           typeof img.color === "string" &&
-          img.color.toLowerCase().includes(color.toLowerCase())
+          // img.color.toLowerCase().includes(color.toLowerCase())
+          img.color.trim().toLowerCase() === color.trim().toLowerCase()
       )
       .map((img) => ({
         src: img.url,
@@ -108,15 +111,15 @@ const ProductsCopy = () => {
   };
 
   const tituloColor = color?.toLowerCase() || "";
-  let subtitulo = "";
+  // let subtitulo = "";
 
-  if (tituloColor === "negro") {
-    subtitulo = "azulado";
-  } else if (tituloColor === "verde") {
-    subtitulo = "navy";
-  } else if (tituloColor === "rosa") {
-    subtitulo = "rosa";
-  }
+  // if (tituloColor === "negro") {
+  //   subtitulo = "azulado";
+  // } else if (tituloColor === "verde") {
+  //   subtitulo = "navy";
+  // } else if (tituloColor === "rosa") {
+  //   subtitulo = "rosa";
+  // }
 
   const isSizeAvailable = (size: string): boolean => {
     return stocks.some(
@@ -133,14 +136,14 @@ const ProductsCopy = () => {
         >
           {tituloColor}
         </h1>
-        {subtitulo && (
+        {/* {subtitulo && (
           <h3
             style={{ fontFamily: "var(--font-baron)" }}
             className="pt-3 text-2xl"
           >
             {subtitulo}
           </h3>
-        )}
+        )} */}
       </div>
 
       <div className="flex flex-col md:flex-row w-[100vw] md:w-auto md:mt-8">
@@ -252,7 +255,7 @@ const ProductsCopy = () => {
               className="cursor-pointer scale-75"
             />
           </div>
-          <div onClick={() => router.push("/tienda?color=Rosa")}>
+          <div onClick={() => router.push("/tienda?color=Rosa Bugambilia")}>
             <ColorCircle
               color="#d100c9"
               position="left"

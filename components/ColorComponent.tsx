@@ -10,7 +10,7 @@ interface ColorComponentProps {
   src: string;
 }
 
-const ColorComponent = ({ title, description, src }: ColorComponentProps) => {
+const ColorComponent = ({ title, src }: ColorComponentProps) => {
   const router = useRouter();
   return (
     <div
@@ -25,9 +25,9 @@ const ColorComponent = ({ title, description, src }: ColorComponentProps) => {
         >
           {title}
         </h1>
-        <h3 style={{ fontFamily: "var(--font-baron)" }} className="text-base">
+        {/* <h3 style={{ fontFamily: "var(--font-baron)" }} className="text-base">
           {description}
-        </h3>
+        </h3> */}
       </div>
     </div>
   );

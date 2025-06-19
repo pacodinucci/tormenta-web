@@ -3,7 +3,7 @@ import ColorComponent from "@/components/ColorComponent";
 
 const colors = [
   {
-    title: "Rosa",
+    title: "Rosa Bugambilia",
     src: "/image2.jpg",
     description: "Bugambilia",
   },
