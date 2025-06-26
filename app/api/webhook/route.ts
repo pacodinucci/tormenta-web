@@ -94,22 +94,28 @@ export async function POST(req: Request) {
         }
       });
 
-      await resend.emails.send({
-        from: "Tormenta <hola@tormenta.mx>",
-        to: customerEmail,
-        bcc: ["hola@tormenta.mx"],
-        subject: "¡Gracias por tu compra!",
-        html: `
-          <h1>¡Hola!</h1>
-          <p>Gracias por tu compra en <strong>Tormenta</strong>.</p>
-          <p>Número de orden: <strong>${orderId}</strong></p>
-          <p>Total: <strong>$${(total / 100).toFixed(2)}</strong></p>
-          <p>Te mantendremos al tanto del envío.</p>
-          <br />
-          <p>Saludos,</p>
-          <p><strong>Equipo Tormenta 🌧️</strong></p>
-        `,
-      });
+      try {
+        const result = await resend.emails.send({
+          from: "Tormenta <hola@tormenta.mx>",
+          to: customerEmail,
+          bcc: ["hola@tormenta.mx"],
+          subject: "¡Gracias por tu compra!",
+          html: `
+            <h1>¡Hola!</h1>
+            <p>Gracias por tu compra en <strong>Tormenta</strong>.</p>
+            <p>Número de orden: <strong>${orderId}</strong></p>
+            <p>Total: <strong>$${(total / 100).toFixed(2)}</strong></p>
+            <p>Te mantendremos al tanto del envío.</p>
+            <br />
+            <p>Saludos,</p>
+            <p><strong>Equipo Tormenta 🌧️</strong></p>
+          `,
+        });
+
+        console.log("📧 Resend result:", result);
+      } catch (error) {
+        console.error("❌ Error al enviar email con Resend:", error);
+      }
 
       console.log("✅ Orden procesada con éxito:", orderId);
     } catch (err) {
