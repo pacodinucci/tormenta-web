@@ -48,7 +48,7 @@ export default function OrderTableWrapper({ orders }: OrderTableWrapperProps) {
     id: order.id,
     Cliente: order.Customer.name,
     Email: order.Customer.email ?? "—",
-    Total: `$${(order.total / 100).toFixed(2)}`,
+    Total: `$${order.total.toFixed(2)}`,
     Pagado: order.isPaid ? "✅" : "❌",
     Entregado: order.isDelivered ? "✅" : "❌",
     // "Fecha de creación": new Date(order.createdAt).toLocaleDateString(),
