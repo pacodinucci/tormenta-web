@@ -97,6 +97,7 @@ export async function POST(req: Request) {
       await resend.emails.send({
         from: "Tormenta <hola@tormenta.mx>",
         to: customerEmail,
+        bcc: ["hola@tormenta.mx"],
         subject: "¡Gracias por tu compra!",
         html: `
           <h1>¡Hola!</h1>
