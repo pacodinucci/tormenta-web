@@ -77,10 +77,20 @@ export const MobileLandingComponent = () => {
         <FaInstagram size={36} />
         <TfiEmail size={36} />
       </div>
-      <div className="absolute z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      {/* <div className="absolute z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <button
           className="w-32 h-32 rounded-full bg-yellow-300 border-4 border-black shadow-md hover:scale-105 transition-transform duration-200"
           aria-label="Botón central"
+          onClick={() => router.push("/colors")}
+        />
+      </div> */}
+      <div className="absolute z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <Image
+          src={"/landing_button.png"}
+          alt="Tormenta Rainwear Landing"
+          width={220}
+          height={220}
+          className="cursor-pointer hover:scale-105 transition-all duration-300"
           onClick={() => router.push("/colors")}
         />
       </div>
