@@ -61,9 +61,25 @@ export const LandingComponent = () => {
 
       {/* Íconos sociales */}
       <div className="p-4 flex flex-col gap-y-8 absolute top-40 right-10 z-10 bg-white">
-        <FaFacebook size={36} className="cursor-pointer" />
-        <FaInstagram size={36} className="cursor-pointer" />
-        <TfiEmail size={36} className="cursor-pointer" />
+        <FaFacebook
+          size={36}
+          className="cursor-pointer"
+          onClick={() =>
+            router.push("https://www.facebook.com/weartormenta.mx")
+          }
+        />
+        <FaInstagram
+          size={36}
+          className="cursor-pointer"
+          onClick={() =>
+            router.push(
+              "https://www.instagram.com/tormenta.mx?igsh=bDEzeTh2anpva2Zk&utm_source=qr"
+            )
+          }
+        />
+        <a href="mailto:hola@tormenta.mx">
+          <TfiEmail size={36} className="cursor-pointer" />
+        </a>
       </div>
 
       {/* Banda inferior */}

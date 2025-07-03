@@ -73,9 +73,23 @@ export const MobileLandingComponent = () => {
         </div>
       </div>
       <div className="absolute bottom-10 left-23 flex items-center justify-between gap-x-8 p-4">
-        <FaFacebook size={36} />
-        <FaInstagram size={36} />
-        <TfiEmail size={36} />
+        <FaFacebook
+          size={36}
+          onClick={() =>
+            router.push("https://www.facebook.com/weartormenta.mx")
+          }
+        />
+        <FaInstagram
+          size={36}
+          onClick={() =>
+            router.push(
+              "https://www.instagram.com/tormenta.mx?igsh=bDEzeTh2anpva2Zk&utm_source=qr"
+            )
+          }
+        />
+        <a href="mailto:hola@tormenta.mx">
+          <TfiEmail size={36} className="cursor-pointer" />
+        </a>
       </div>
       {/* <div className="absolute z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <button
